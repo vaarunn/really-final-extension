@@ -49,9 +49,18 @@ const Puppy = async (url) => {
         .join(" ");
     });
 
-    fs.writeFile("./python/content.json", JSON.stringify(pageText), (err) => {
+    const bodyHTML = await page.evaluate(() => {
+      return document.body.innerText.trim().replace(/\s+/g, " ");
+    });
+
+    // fs.writeFile("./python/content.json", JSON.stringify(pageText), (err) => {
+    //   if (err) throw err;
+    //   console.log("Content written to file!");
+    // });
+
+    fs.writeFile("./python/content.json", JSON.stringify(bodyHTML), (err) => {
       if (err) throw err;
-      console.log("Content written to file!");
+      console.log("Conetent written to file!");
     });
 
     // console.log(pageText);
